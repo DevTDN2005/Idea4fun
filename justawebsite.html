@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TESTING</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Video Background */
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Video sẽ phủ kín màn hình */
+            z-index: -1;
+        }
+
+        .audio-background {
+            display: none; /* Không hiển thị trên giao diện */
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sticker trang trí */
+        .sticker {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 50px;
+            height: 50px;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Vùng chính */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: white;
+            text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        .text-box {
+            background: rgba(0, 0, 0, 0.5); /* Nền mờ để dễ nhìn */
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .text-box textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 1rem;
+            font-family: inherit;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .button-login {
+            background-color: #db00b6;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .button-login:hover {
+            background-color: #e87ea1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <video id="bg-video" class="video-background" autoplay muted loop>
+        <source src="data/background.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+    </video>
+
+    <!-- Audio Background -->
+    <audio id="bg-audio" class="audio-background" autoplay loop>
+        <source src="data/mixigaming.MP3" type="audio/mp3">
+        Trình duyệt của bạn không hỗ trợ âm thanh.
+    </audio>
+    
+    <!-- Nội dung chính -->
+    <div class="container">
+        <div class="text-box">
+            <h1>Chào mừng bạn!</h1>
+            <p>Hãy nhập tên của bạn bên dưới:</p>
+            <textarea id="myInput" placeholder="Nhập ký tự tại đây..." style="width: 100%; height: 30px;"></textarea>
+            <button class="button-login" onclick="getValue()">Nhập tên</button>
+        </div>
+    </div>
+
+    <script>
+        // Tự động phát video khi trang tải
+        window.onload = function() {
+            var video = document.getElementById("bg-video");
+            var audio = document.getElementById("bg-audio");
+
+            // Phát video
+            video.play();
+
+            // Video đã bật âm thanh, nhưng vẫn phải đợi tương tác để phát âm thanh
+            audio.muted = true; // Âm thanh sẽ bị tắt khi bắt đầu
+        };
+
+        // Hàm unmute âm thanh khi người dùng nhấn vào trang
+        function unmuteAudio() {
+            var audio = document.getElementById("bg-audio");
+            audio.muted = false;  // Tắt chế độ tắt âm thanh
+            audio.play();  // Phát âm thanh
+        }
+        function getValue() {
+            var inputValue = document.getElementById("myInput").value;
+            switch (inputValue) {
+                case "Phụng": case "Phung": case "phụng": case "phung":
+                    window.location.href = "data/1_3page.html";
+                    break;
+                case "Linh": case "linh":
+                    window.location.href = "data/2_3page.html";
+                    break;
+                case "Như": case "Nhu": case "như": case "nhu":
+                    window.location.href = "data/3_3page.html";
+                    break;
+                default:
+                    alert("Không tìm thấy kết quả về tên này. Vui lòng thử lại!");
+            }
+        }
+    </script>
+</body>
+</html>
